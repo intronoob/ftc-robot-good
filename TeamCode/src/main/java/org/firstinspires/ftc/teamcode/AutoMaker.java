@@ -14,10 +14,11 @@ import org.firstinspires.ftc.teamcode.helpers.ArduinoComms;
  @TeleOp(name = "AutoMaker (Debug)")
 public class AutoMaker extends OpMode {
     private ArduinoComms comm;
-    private DcMotor roll_in;
-    private DcMotor roll_mid_right;
-    private DcMotor launcher;
-    private Servo trapDoor;
+    private LauncherController launchSystem;
+//    private DcMotor roll_in;
+//    private DcMotor roll_mid_right;
+//    private DcMotor launcher;
+//    private Servo trapDoor;
 
 
     private RobotMovementController WheelDrive;
@@ -30,13 +31,8 @@ public class AutoMaker extends OpMode {
     public void init() {
         comm = new ArduinoComms(hardwareMap,"pin0","pin1","pin2");
         WheelDrive = new RobotMovementController(hardwareMap);
-        roll_in = hardwareMap.get(DcMotor.class, "roll_in");
-        roll_mid_right = hardwareMap.get(DcMotor.class, "roll_mid_right");
-        launcher = hardwareMap.get(DcMotor.class, "launch");
-        trapDoor = hardwareMap.get(Servo.class, "trapdoor");
+        launchSystem;
 
-        roll_in.setDirection(DcMotor.Direction.REVERSE);
-        roll_mid_right.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -69,6 +65,8 @@ public class AutoMaker extends OpMode {
         } else if (gamepad1.bWasReleased()) {
             WheelDrive.moveInches(0, moveAmt, MOVPWR);
             xMoveAmt += moveAmt;
+        } else if (gamepad1.rightStickButtonWasReleased()) {
+            launch();
         }
 
         // ---- TELEMETRY ----
