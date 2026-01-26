@@ -20,7 +20,7 @@ public class  robotControl extends OpMode {
     // Simple state flag so loop runs once
     private double LAUNCH_POWER = 0.52;
     private static final double LAUNCH_POWER_INIT = 0.52;
-    private double LAUNCH_VOLTAGE_INIT = 13.80;
+    private double LAUNCH_VOLTAGE_INIT = 13.85;
 
     private boolean roll_in_state = false;
     private boolean mid_roll_state = false;
