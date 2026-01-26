@@ -19,11 +19,12 @@ public class  robotControl extends OpMode {
     private RobotMovementController WheelDrive;
     // Simple state flag so loop runs once
     private double LAUNCH_POWER = 0.52;
-    private static final double LAUNCH_POWER_INIT = 0.7;
+    private static final double LAUNCH_POWER_INIT = 0.52;
+    private double LAUNCH_VOLTAGE_INIT = 13.85;
 
     private boolean roll_in_state = false;
     private boolean mid_roll_state = false;
-    private boolean launching = true;
+    private boolean launching = false;
     private boolean trapdooring = false;
 
     @Override
@@ -48,7 +49,7 @@ public class  robotControl extends OpMode {
         double drive =  -gamepad1.left_stick_y;
         double strafe = gamepad1.left_stick_x;
         double rotate = -gamepad1.right_stick_y; //bc y stick inverts
-        WheelDrive.drive(drive*0.1,strafe*0.1,rotate*0.1);
+        WheelDrive.drive(drive,strafe,rotate);
         if(gamepad2.aWasReleased()) {
             roll_in_state = !roll_in_state;
             mid_roll_state = !mid_roll_state;
@@ -58,7 +59,7 @@ public class  robotControl extends OpMode {
         }
         if(gamepad2.bWasReleased()) {
             trapdooring = !trapdooring;
-            trapDoor.setPosition(trapdooring ? 0.3 : 0.0);
+            trapDoor.setPosition(trapdooring ? 0.3-0.5 : 0.0-0.5);
         }
         if(gamepad2.xWasReleased()) {
             launching = !launching;
@@ -66,7 +67,10 @@ public class  robotControl extends OpMode {
         if(gamepad2.leftBumperWasReleased()) {
             LAUNCH_POWER = gamepad2.right_trigger == 0 ? LAUNCH_POWER_INIT : gamepad2.right_trigger;
         }
-        launcher.setPower(launching ? LAUNCH_POWER : 0);
+        double voltage = hardwareMap.voltageSensor.iterator().next().getVoltage();
+        launcher.setPower(launching ? LAUNCH_POWER*(LAUNCH_VOLTAGE_INIT/voltage) : 0);
+        telemetry.addData("voltage as % of og voltage: ", LAUNCH_POWER*(LAUNCH_VOLTAGE_INIT/voltage));
+        telemetry.update();
 //        if (timer.seconds() > 2.0) {
 //            launcher.setPower(launching ? LAUNCH_POWER : 0);
 //            timer.reset();

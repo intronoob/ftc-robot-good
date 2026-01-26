@@ -94,10 +94,10 @@ public class RobotMovementController {
      */
     public void drive(double drive, double strafe, double rotate) {
 
-        double fl = drive + strafe - rotate;
-        double fr = drive - strafe + rotate;
-        double bl = drive - strafe - rotate;
-        double br = drive + strafe + rotate;
+        double fl = (drive + strafe - rotate);
+        double fr = (drive - strafe + rotate);
+        double bl = (drive - strafe - rotate);
+        double br = (drive + strafe + rotate);
 
         frontLeft.setPower(fl);
         frontRight.setPower(fr);
