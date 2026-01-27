@@ -110,12 +110,12 @@ public class RobotMovementController {
      * X = forward/back
      * Y = strafe
      */
-    public void moveInches(double yInches, double xInches, double power) {
+    public void moveInches(double yInches, double xInches, double rotInches, double power) {
 
-        int flTarget = (int) ((yInches - xInches) / DIST_PER_STEP);
-        int frTarget = (int) ((yInches + xInches) / DIST_PER_STEP);
-        int blTarget = (int) ((yInches + xInches) / DIST_PER_STEP);
-        int brTarget = (int) ((yInches - xInches) / DIST_PER_STEP);
+        int flTarget = (int) ((yInches - xInches - rotInches) / DIST_PER_STEP);
+        int frTarget = (int) ((yInches + xInches + rotInches) / DIST_PER_STEP);
+        int blTarget = (int) ((yInches + xInches - rotInches) / DIST_PER_STEP);
+        int brTarget = (int) ((yInches - xInches + rotInches) / DIST_PER_STEP);
 
         setTargetPositions(flTarget, frTarget, blTarget, brTarget);
 
