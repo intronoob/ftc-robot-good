@@ -17,7 +17,7 @@ public class robotAuto1 extends OpMode {
 
     // simple state machine
     private int step = 0;
-    private boolean done = 0;
+    private boolean done = false;
 
     @Override
     public void init() {
@@ -58,7 +58,7 @@ public class robotAuto1 extends OpMode {
 
             telemetry.addData("Auto", "Complete");
             telemetry.update();
-            done = true
+            done = true;
         }
 
         telemetry.addData("Step", step);
