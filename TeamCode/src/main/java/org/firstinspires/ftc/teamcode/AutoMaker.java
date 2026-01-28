@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.helpers.ArduinoComms;
 
- @TeleOp(name = "AutoMaker (Debug)")
+ @TeleOp(name = "AutoMaker")
 public class AutoMaker extends OpMode {
     private ArduinoComms comm;
     private LauncherController launchSystem;

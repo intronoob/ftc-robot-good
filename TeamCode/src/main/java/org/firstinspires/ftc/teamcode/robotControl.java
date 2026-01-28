@@ -21,6 +21,8 @@ public class  robotControl extends OpMode {
     private double LAUNCH_POWER = 0.52;
     private static final double LAUNCH_POWER_INIT = 0.52;
     private double LAUNCH_VOLTAGE_INIT = 13.85;
+    private static final double OPEN_POSITION = 0.3;
+    private static final double CLOSE_POSITION = 0;
 
     private boolean roll_in_state = false;
     private boolean mid_roll_state = false;
@@ -59,7 +61,7 @@ public class  robotControl extends OpMode {
         }
         if(gamepad2.bWasReleased()) {
             trapdooring = !trapdooring;
-            trapDoor.setPosition(trapdooring ? 0.3-0.5 : 0.0-0.5);
+            trapDoor.setPosition(trapdooring ? OPEN_POSITION : CLOSE_POSITION);
         }
         if(gamepad2.xWasReleased()) {
             launching = !launching;
@@ -70,6 +72,7 @@ public class  robotControl extends OpMode {
         double voltage = hardwareMap.voltageSensor.iterator().next().getVoltage();
         launcher.setPower(launching ? LAUNCH_POWER*(LAUNCH_VOLTAGE_INIT/voltage) : 0);
         telemetry.addData("voltage as % of og voltage: ", LAUNCH_POWER*(LAUNCH_VOLTAGE_INIT/voltage));
+        telemetry.addData("servo pos: ", trapdooring ? OPEN_POSITION : CLOSE_POSITION);
         telemetry.update();
 //        if (timer.seconds() > 2.0) {
 //            launcher.setPower(launching ? LAUNCH_POWER : 0);

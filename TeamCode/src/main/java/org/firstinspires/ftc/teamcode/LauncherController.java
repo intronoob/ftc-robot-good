@@ -9,7 +9,7 @@ public class LauncherController {
 
     private static final double LAUNCH_POWER_INIT = 0.52;
     private static final double LAUNCH_VOLTAGE_INIT = 13.85;
-    private static final double OPEN_POSITION = 1;
+    private static final double OPEN_POSITION = 0.3;
     private static final double CLOSE_POSITION = 0;
 
     private final DcMotor launch;
@@ -41,7 +41,7 @@ public class LauncherController {
         // get battery voltage
         double voltage = hardwareMap.voltageSensor.iterator().next().getVoltage();
         trapDoor.setPosition(OPEN_POSITION);
-        // spin up launcher
+//        // spin up launcher
         double compensatedPower = LAUNCH_POWER_INIT * (LAUNCH_VOLTAGE_INIT / voltage);
         launch.setPower(compensatedPower);
 
